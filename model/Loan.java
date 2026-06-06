@@ -2,35 +2,27 @@ package model;
 
 public class Loan
 {
-    String loanId;
-    String loanType;
-    int loanAmount;
-    double interestRate;
+    private String loanId;
+    private String loanType;
+    private int loanAmount;
+    private double interestRate;
 
-    Loan(String loanId, String loanType, int loanAmount, double interestRate)
+    private static int counter = 1000;
+
+    Loan(String loanType, int loanAmount, double interestRate)
     {
         setLoanAmount(loanAmount);
-        setLoanId(loanId);
+       this.loanId = generateLoanId();
         setLoanInterest(interestRate);
         setLoanType(loanType);
     }
 
-    private static final String LOAN_ID_REGEX = "^LN[A-Za-z0-9]{4,10}$";
-
-    public void setLoanId(String loanId)
+    public String generateLoanId()
     {
-        if (loanId == null || loanId.trim().isEmpty())
-        {
-            throw new IllegalArgumentException("Loan Id cannot be Empty");
-        }
+          return "LN" + counter++;
+    } 
 
-        if (!loanId.matches(LOAN_ID_REGEX))
-        {
-            throw new IllegalArgumentException(" Invalid Loan Id Format ");
-        }
-
-        this.loanId = loanId.trim();
-    }
+ 
 
     public void setLoanType(String loanType)
     {

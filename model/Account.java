@@ -6,21 +6,16 @@ public class Account
     private String accountHolderName;
     private int balance = 0;
     private String accountType;
-    private String customerId;
+ 
 
-    public Account(int accountNumber, String accountHolderName, int balance, String accountType, String customerId)
+    public Account(int accountNumber, String accountHolderName, int balance, String accountType)
     {
         setAccountHolderName(accountHolderName);
         setAccountNumber(accountNumber);
         setAccountType(accountType);
-        setCustomerId(customerId);
+     
 
-        if (balance < 0)
-        {
-            throw new IllegalArgumentException("Balance cannot be negative ");
-        }
-
-        this.balance = balance;
+       
     }
 
     public void setAccountNumber(int accountNumber)
@@ -63,15 +58,15 @@ public class Account
         throw new IllegalArgumentException(" Add Only Valid Account Type");
     }
 
-    public void setCustomerId(String customerId)
-    {
-        if (customerId == null || customerId.trim().isEmpty())
-        {
-            throw new IllegalArgumentException(" Customer Id Can't be Emptyt ");
-        }
 
-        this.customerId = customerId.trim();
-    }
+      public void setBalance(int balance)
+      {
+        if(balance < 0)
+        {
+          throw new IllegalArgumentException("Enter a Value Greater Than zero");
+        }
+        this.balance = balance;
+      }
 
     public int getAccountNumber()
     {
@@ -93,10 +88,7 @@ public class Account
         return accountType;
     }
 
-    public String getCustomerId()
-    {
-        return customerId;
-    }
+   
 
     @Override
     public String toString()
@@ -104,7 +96,6 @@ public class Account
         return "\nAccount Number : " + accountNumber +
                "\nAccount Holder : " + accountHolderName +
                "\nBalance        : " + balance +
-               "\nAccount Type   : " + accountType +
-               "\nCustomer ID    : " + customerId;
+               "\nAccount Type   : " + accountType;
     }
 }

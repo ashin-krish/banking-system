@@ -8,6 +8,10 @@ public class Customer
     private String  phone;
     private String address;
     private String dob;
+    private String customerId;
+
+    private static int counter = 1000;
+
 
     public Customer(String name,String email,String phone,String address, String dob)
     {
@@ -16,6 +20,19 @@ public class Customer
            setName(name);
            setPhoneNumber(phone);
            setDob(dob);
+
+           this.customerId = generateCustomerId();
+    }
+
+    private String generateCustomerId()
+    {
+          return "CUS" + counter++;
+    }
+
+
+    public String getCustomerId()
+    {
+       return customerId;
     }
 
     public void setName(String name)
@@ -109,7 +126,8 @@ public String getDOB()
 @Override
 public String toString() {
     return "Customer{" +
-            "name='" + name + '\'' +
+            "customerId='" + customerId + '\'' +
+            ", name='" + name + '\'' +
             ", email='" + email + '\'' +
             ", phone='" + phone + '\'' +
             ", address='" + address + '\'' +
