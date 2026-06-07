@@ -1,37 +1,168 @@
 package service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import exception.DuplicateAccountException;
+import exception.InsufficientBalanceException;
+import exception.AccountNotFoundException;
+
 import model.Account;
+import model.Transaction;
 
-public class AccountService 
-{
+public class AccountService {
 
-    List<Account> accounts = new ArrayList<>();
-
-    
+private List<Account> accounts = new ArrayList<>();
+private List<Transaction> transactions = new ArrayList<>();
 
     public void createAccount(Account account)
 
-    throws DuplicateAccountException
+            throws DuplicateAccountException
 
     {
-        if(account == null)
-        {
-            throw new NullPointerException("Account cannot be null");
+        if (account == null) {
+            throw new IllegalArgumentException("Account cannot be null");
         }
-         for (Account existingAccount : accounts) {
-            if(account.getAccountNumber() == existingAccount.getAccountNumber())
-            {
+        for (Account existingAccount : accounts) {
+            if (account.getAccountNumber() == existingAccount.getAccountNumber()) {
                 throw new DuplicateAccountException("Duplicate account");
             }
 
-       
-         }
+        }
 
-         accounts.add(account);
-       
+        accounts.add(account);
+
     }
+
+    public Account viewAccount(int accountNumber)
+
+            throws AccountNotFoundException
+
+    {
+
+        for (Account availableAccount : accounts) {
+            if (accountNumber == availableAccount.getAccountNumber()) {
+
+                return availableAccount;
+
+            }
+
+        }
+
+        throw new AccountNotFoundException("No Account Found");
+    }
+
+    public void deposit(int amount, int accountNumber)
+
+            throws AccountNotFoundException {
+
+        if (amount <= 0) {
+            throw new IllegalArgumentException(" Enter a Positive amount ");
+        }
+        for (Account depositAccount : accounts) {
+            if (accountNumber == depositAccount.getAccountNumber()) {
+                depositAccount.setBalance(depositAccount.getBalance() + amount);
+                Transaction transaction = new Transaction( accountNumber, "Deposit", amount, LocalDateTime.now());
+                transactions.add(transaction);
+                return;
+            }
+
+        }
+
+        throw new AccountNotFoundException("No Account Found");
+
+    }
+
+    public void withDraw(int amount, int accountNumber)
+
+            throws AccountNotFoundException, InsufficientBalanceException
+
+    {
+
+        if (amount <= 0) {
+            throw new IllegalArgumentException(" Enter a Positive amount ");
+        }
+
+        for (Account withDrawAccount : accounts) {
+            if (accountNumber == withDrawAccount.getAccountNumber()) {
+                if (amount > withDrawAccount.getBalance()) {
+                    throw new InsufficientBalanceException("Insufficient Balnce ");
+                }
+
+                withDrawAccount.setBalance(withDrawAccount.getBalance() - amount);
+                 Transaction transaction = new Transaction( accountNumber, "withdraw", amount, LocalDateTime.now());
+                 transactions.add(transaction);
+                return;
+
+            }
+
+        }
+
+        throw new AccountNotFoundException("No Account Found");
+
+    }
+
+    public void transferMoney(int fromAccountId, int toAccountId, int amount)
+
+            throws AccountNotFoundException, InsufficientBalanceException
+
+    {
+
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Enter a positive value");
+        }
+
+        if (fromAccountId == toAccountId) {
+            throw new IllegalArgumentException("receiver cannot be the same Account");
+        }
+
+        
+
+        Account sender = viewAccount(fromAccountId);
+        Account receiver = viewAccount(toAccountId);
+
+        if (amount > sender.getBalance()) {
+            throw new InsufficientBalanceException(" Insuffucent balanace ");
+
+        }
+
+        sender.setBalance(sender.getBalance() - amount);
+
+        receiver.setBalance(receiver.getBalance() + amount);
+
+         Transaction sendertransaction = new Transaction(fromAccountId, "transfer", amount, LocalDateTime.now());
+         Transaction receiverTransaction= new Transaction(toAccountId, "transfer", amount, LocalDateTime.now());
+
+                 transactions.add(sendertransaction);
+                 transactions.add(receiverTransaction);
+
+    }
+
+
+    public void deleteAccount(int accountId)
+    throws AccountNotFoundException
+    {
+        Account delAccount = viewAccount(accountId);
+
+        accounts.remove(delAccount);
+    }
+
+public List<Transaction> getTransactionsByAccount(int accountNumber)
+        throws AccountNotFoundException {
+
+    viewAccount(accountNumber); // validates account exists
+
+    List<Transaction> accountTransactions = new ArrayList<>();
+
+    for (Transaction transaction : transactions) {
+
+        if (transaction.getAccountNumber() == accountNumber) {
+            accountTransactions.add(transaction);
+        }
+    }
+
+    return accountTransactions;
+}
+
 }

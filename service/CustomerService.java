@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import model.Customer;
+
 import exception.CustomerNotFoundException;
 import exception.DuplicateCustomerException;
 
@@ -28,7 +29,7 @@ public class CustomerService
          for (Customer existingCustomer : customers) 
         {
 
-            if(customer.getCustomerId().equals(existingCustomer.getCustomerId()))
+            if(customer.getEmail().equals(existingCustomer.getEmail()))
             {
                 throw new DuplicateCustomerException(" Account Already Exist ");
             }
@@ -63,18 +64,57 @@ public class CustomerService
         throw new CustomerNotFoundException("No Customer Found");
     }
 
-    public Customer viewAllCustomer()
+    public List<Customer> viewAllCustomers()
     {
-        for (Customer existingCustomer : customers) 
-        {
-             return existingCustomer;
-        }
-        return null;
+        return new ArrayList<>(customers);
     }
 
+public void updateCustomerEmail(String oldEmail,String newEmail )
+        throws CustomerNotFoundException {
 
+    for (Customer customer : customers) {
+        if (customer.getCustomerId().equals(oldEmail)) {
+            customer.setEmail(newEmail);
+            return;
+        }
+    }
 
-
-
-    
+    throw new CustomerNotFoundException("Customer not found");
 }
+
+public void delCustomer(String email)
+
+ throws CustomerNotFoundException
+
+{
+
+    if(email == null)
+{
+    throw new IllegalArgumentException("Customer cannot be null");
+} 
+
+viewCustomer(email);
+
+
+ for (Customer existingCustomer : customers) 
+ {
+     if(email.equals(existingCustomer.getEmail()))
+     {
+
+         customers.remove(existingCustomer);
+     }
+ }
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+        

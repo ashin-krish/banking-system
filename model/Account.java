@@ -13,6 +13,7 @@ public class Account
         setAccountHolderName(accountHolderName);
         setAccountNumber(accountNumber);
         setAccountType(accountType);
+        this.balance = balance;
      
 
        

@@ -123,6 +123,12 @@ public String getDOB()
   return dob;
 }
 
+public String getName()
+{
+  return name;
+}
+
+
 @Override
 public String toString() {
     return "Customer{" +
@@ -134,5 +140,6 @@ public String toString() {
             ", dob='" + dob + '\'' +
             '}';
 }
+
 
 }

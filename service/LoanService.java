@@ -22,7 +22,7 @@ public class LoanService
         }
        for (Loan existingLoan : loans) 
     {
-         if(loan.getLoanId() == existingLoan.getLoanId())
+         if(loan.getLoanId().equals(existingLoan.getLoanId()))
          {
                 throw new DuplicateLoanException("Loan Already exists");
          }
@@ -68,6 +68,41 @@ public class LoanService
      {
         Loan loan = getloanById(loanId);
          return (loan.getAmount() * loan.getLoanInterest())/100.0;
+     }
+
+
+
+
+
+
+     public List<Loan> getLoansByType(String loanType)
+     {
+
+         if (loanType == null || loanType.trim().isEmpty())
+        {
+            throw new IllegalArgumentException("Loan type cannot be empty");
+        }       
+
+        loanType = loanType.trim().toLowerCase();
+
+        if (!loanType.equals("homeloan") &&
+            !loanType.equals("carloan") &&
+            !loanType.equals("educationalloan"))
+        {
+            throw new IllegalArgumentException("Invalid loan type");
+        }
+
+
+         List<Loan> matchingLoans = new ArrayList<>();
+
+        for (Loan existingLoan : loans) 
+        {
+             if(existingLoan.getLoanType().equals(loanType))
+             {
+                matchingLoans.add(existingLoan);
+             }
+        }
+        return matchingLoans;
      }
 
 

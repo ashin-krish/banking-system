@@ -9,7 +9,7 @@ public class Loan
 
     private static int counter = 1000;
 
-    Loan(String loanType, int loanAmount, double interestRate)
+  public Loan(String loanType, int loanAmount, double interestRate)
     {
         setLoanAmount(loanAmount);
        this.loanId = generateLoanId();
