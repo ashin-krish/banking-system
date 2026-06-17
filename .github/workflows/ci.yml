@@ -29,7 +29,6 @@ jobs:
       - name: Show compiled files
         run: find . -name "*.class"
 
-      - name: Run Application
-        run: java ui.Start
+      
 
-        
+
