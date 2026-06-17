@@ -1,160 +1,132 @@
-# 🏦 Banking System (Java Console Application)
+🏦 Banking System (Java Console Application)
 
-> Because keeping money under the mattress isn't scalable.
+“A banking system built to make money management feel less like chaos and more like control.”
 
-A console-based Banking Management System built in Java that allows users to manage accounts, customers, loans, and transactions through a menu-driven interface.
+A console-based banking application built in Java that simulates core banking operations like account handling, customer management, loans, and transactions.
 
-This project was created to practice **Core Java, OOP concepts, Collections, Exception Handling, Layered Architecture, and Business Logic Implementation**.
+This project focuses on strengthening Core Java, Object-Oriented Design, Collections, Exception Handling, Layered Architecture, and real-world system thinking.
 
----
+✨ What it does
+💳 Accounts
+Create and manage accounts
+Deposit & withdraw funds
+Transfer money between accounts
+View & delete account details
 
-## ✨ Features
+👤 Customers
+Add and manage customer profiles
+Update customer information
+View full customer list
+Remove customer records
 
-### 💳 Account Management
+💰 Loans
+Apply for loans
+View loan details
+Interest calculation
+Search & manage loan records
 
-* Create a new account
-* View account details
-* Deposit money
-* Withdraw money
-* Transfer money between accounts
-* Delete accounts
+📜 Transactions
+Track deposits, withdrawals, and transfers
+View complete transaction history per account
+🚨 Error Handling (Built-in Safety Layer)
 
-### 👤 Customer Management
+Custom exceptions ensure the system stays stable and predictable:
 
-* Add new customers
-* View customer details
-* View all customers
-* Update customer email
-* Delete customers
+DuplicateAccountException
+AccountNotFoundException
+InsufficientBalanceException
+DuplicateCustomerException
+CustomerNotFoundException
+DuplicateLoanException
+LoanNotFoundException
 
-### 💰 Loan Management
 
-* Apply for loans
-* View loan details
-* View all loans
-* Remove loans
-* Calculate loan interest
-* Search loans by type
 
-### 📜 Transaction Management
-
-* Record deposits
-* Record withdrawals
-* Record transfers
-* View account transaction history
-
-### 🚨 Exception Handling
-
-Custom exceptions implemented for:
-
-* DuplicateAccountException
-* AccountNotFoundException
-* InsufficientBalanceException
-* DuplicateCustomerException
-* CustomerNotFoundException
-* DuplicateLoanException
-* LoanNotFoundException
-
----
-
-## 🏗️ Project Structure
-
-```text
+🏗️ Project Structure
 Banking-System/
 │
-├── exception/
-│   ├── AccountNotFoundException.java
-│   ├── CustomerNotFoundException.java
-│   ├── DuplicateAccountException.java
-│   ├── DuplicateCustomerException.java
-│   ├── DuplicateLoanException.java
-│   ├── InsufficientBalanceException.java
-│   └── LoanNotFoundException.java
+├── .github/
+│   └── workflows/
+│       └── ci.yml              # CI pipeline (GitHub Actions)
 │
-├── model/
-│   ├── Account.java
-│   ├── Customer.java
-│   ├── Loan.java
-│   └── Transaction.java
+├── exception/                  # Custom exception layer
+├── model/                     # Core data models
+├── service/                   # Business logic layer
+├── ui/                        # Console UI (entry point)
 │
-├── service/
-│   ├── AccountService.java
-│   ├── CustomerService.java
-│   └── LoanService.java
-│
-└── ui/
-    ├── consoleUI.java
-    ├── Menu.java
-    └── Start.java
-```
+├── scripts/                   # Automation scripts
+│   ├── build.sh               # Compile project
+│   └── run.sh                 # Run application
 
 
-## 🛠️ Tech Stack
+🛠️ Tech Stack (and Tools that make it real)
+Java (Core)
+OOP Design Principles
+Collections Framework
+Exception Handling
+CLI-based UI
 
-* Java
-* OOP (Object-Oriented Programming)
-* Collections Framework
-* Exception Handling
-* Console-Based UI
-* Layered Architecture
 
----
+⚙️ Dev & Automation Layer
+Bash scripting (build automation)
+Git & GitHub (version control)
+GitHub Actions (CI pipeline)
+Linux environment
+Vi editor (terminal-first development workflow)
+⚙️ Automation Flow
+🧪 Local Scripts
 
-## 🎯 Concepts Practiced
+Simple bash scripts handle the heavy lifting:
 
-* Classes & Objects
-* Encapsulation
-* Constructor Overloading
-* Collections (`ArrayList`)
-* Custom Exceptions
-* Business Logic Separation
-* Menu Driven Applications
-* Method Design
-* Validation & Error Handling
+build.sh → compiles the entire project
+run.sh → launches the application
 
----
-
-## 🚀 Running the Project
-
-### Compile
-
-```bash
-javac ui/*.java service/*.java model/*.java exception/*.java
-```
-
-### Run
-
-```bash
-java ui.Start
-```
-
----
-
-## 📈 Future Improvements
-
-* [ ] JDBC Integration
-* [ ] MySQL Database Support
-* [ ] User Authentication
-* [ ] Account Statements
-* [ ] Interest Calculation Automation
-* [ ] File Persistence
-* [ ] JUnit Testing
-* [ ] Spring Boot Version
+Think of it as your mini build system — no IDE needed.
 
 
 
----
+🚀 CI Pipeline (GitHub Actions)
 
-## 📸 Current Status
+Every push to main triggers:
 
-✅ Version 1 Completed
+Code checkout
+Java setup (Temurin 21)
+Build execution via script
+Compilation verification
 
-The core banking functionalities are fully implemented and working as expected.
+So every change gets automatically validated — no surprises.
 
----
+💻 How I Built It (Workflow)
+Code written using Vi editor
+Builds handled through bash scripts
+Execution via terminal commands
+Version control with Git + GitHub
+CI checks through GitHub Actions
 
-## 👨‍💻 Author
+Basically: no IDE dependency, just terminal + discipline.
+
+🎯 What This Project Taught Me
+Thinking in layers (UI → Service → Model)
+Designing clean business logic
+Writing custom exceptions instead of hacks
+Structuring Java projects properly
+Automating builds using scripts
+Setting up CI pipelines from scratch
+Working in a Linux-style dev environment
+🚀 Future Upgrades
+Database integration (JDBC + MySQL)
+User authentication system
+Account statements & reports
+Persistent file storage
+JUnit test suite
+Spring Boot version of the system
+📌 Status
+
+✔ Version 1 Complete
+Core banking features are stable and fully functional.
+
+👨‍💻 Author
 
 Ashin Krishna
 
-> Built with Java, patience, and an unreasonable amount of debugging.
+Built with Java, bash scripts, and a slightly unhealthy amount of debugging sessions.
