@@ -479,6 +479,7 @@ public class Start {
 
                 case 4:
                     transactionMenu(sc);
+                    break;
 
                 case 0:
                     System.exit(0);
