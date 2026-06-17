@@ -24,7 +24,7 @@ jobs:
         run: ls -R
             
       - name: Compile Java Project
-        run: javac $(find . -name "*.java")
+        run: ./scripts/build.sh
 
       - name: Show compiled files
         run: find . -name "*.class"
