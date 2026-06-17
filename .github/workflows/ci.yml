@@ -16,6 +16,20 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      
+      - name: Show java version
+        run: java -version
+      
+      - name: show Project Structure
+        run: ls -R
             
       - name: Compile Java Project
         run: javac $(find . -name "*.java")
+
+      - name: Show compiled files
+        run: find . -name "*.class"
+
+      - name: Run Application
+        run: java ui.Start
+
+        
