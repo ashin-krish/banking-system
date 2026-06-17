@@ -17,5 +17,5 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
             
-      - name: compile java files
-        run: javac *.java
+      - name: Compile Java Project
+        run: javac $(find . -name "*.java")
