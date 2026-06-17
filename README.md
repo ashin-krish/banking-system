@@ -623,20 +623,7 @@ This project demonstrates proficiency in:
 
 ---
 
-## License
 
-This project is open source and available under the MIT License.
-
----
-
-## Support & Contact
-
-For issues, questions, or suggestions:
-- Open an issue on GitHub: [Issues](https://github.com/yourusername/banking-system/issues)
-- Contact the development team
-- Check the documentation
-
----
 
 ## Credits
 
