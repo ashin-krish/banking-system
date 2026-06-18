@@ -210,7 +210,7 @@ public class Start {
 
                         customerservice.addCustomer(customer);
 
-                    } catch (DuplicateCustomerException | IllegalArgumentException e) {
+                    } catch (DuplicateCustomerException | IllegalArgumentException | IOException e) {
                         System.out.println(e.getMessage());
                     }
 
@@ -256,7 +256,7 @@ public class Start {
                         System.out.println(" Updation Succesfull ");
                     }
 
-                    catch (CustomerNotFoundException e) {
+                    catch (CustomerNotFoundException | IOException | DuplicateCustomerException e) {
                         System.out.println(e.getMessage());
 
                     }
@@ -270,7 +270,7 @@ public class Start {
                         customerservice.delCustomer(email);
 
                         System.out.println(" Customer Deleted Succesfully ");
-                    } catch (IllegalArgumentException | CustomerNotFoundException e) {
+                    } catch (IllegalArgumentException | CustomerNotFoundException | IOException e) {
                         System.out.println(e.getMessage());
                     }
                     break;

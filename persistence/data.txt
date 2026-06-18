@@ -9,3 +9,6 @@ accountNumber,accountHolderName,balance,accountType
 10008,User8,1000,savings
 10009,User9,1000,savings
 10010,User10,1000,savings
+40067,ioiop,90,savings
+11123,Ashin,1000,savings
+11323,John,2000,savings

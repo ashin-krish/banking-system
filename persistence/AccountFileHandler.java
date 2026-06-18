@@ -18,7 +18,7 @@ public class AccountFileHandler {
 
         List<Account> accounts = new ArrayList<>();
 
-        File file = new File("persistence/data.txt");
+        File file = new File("data/Account_data.txt");
 
         if (!file.exists()) {
 
@@ -69,7 +69,7 @@ public class AccountFileHandler {
 
     public void saveAllAccounts(List<Account> accounts)
             throws IOException {
-        File file = new File("persistence/data.txt");
+        File file = new File("data/Account_data.txt");
 
         try (
                 FileWriter fw = new FileWriter(file);

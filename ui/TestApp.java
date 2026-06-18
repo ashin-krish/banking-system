@@ -28,8 +28,8 @@ public class TestApp {
             String name = args[2];
                 int balance = Integer.parseInt(args[3]);
 
-            Account account = new Account(accountNumber, name, balance, "Savings");
-
+        Account account = new Account(accountNumber, name, balance, "Savings");
+        
             service.createAccount(account);
 
             System.out.println("Account created successfully: " + accountNumber);
