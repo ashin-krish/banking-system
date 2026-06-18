@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -62,7 +63,7 @@ public class Start {
                         accountService.createAccount(account);
                         System.out.println("Account " + accountNumber + " created successfully.");
 
-                    } catch (DuplicateAccountException | IllegalArgumentException e) {
+                    } catch (DuplicateAccountException | IllegalArgumentException  | IOException e) {
                         System.out.println(e.getMessage());
                     }
 

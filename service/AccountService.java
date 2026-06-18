@@ -1,5 +1,6 @@
 package service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +12,24 @@ import exception.AccountNotFoundException;
 import model.Account;
 import model.Transaction;
 
+import persistence.*;
+
 public class AccountService {
 
 private List<Account> accounts = new ArrayList<>();
 private List<Transaction> transactions = new ArrayList<>();
 
+AccountFileHandler accountFileHandler = new AccountFileHandler();
+
+
+public AccountService()
+{
+    accounts=accountFileHandler.loadFile();
+}
+
     public void createAccount(Account account)
 
-            throws DuplicateAccountException
+            throws DuplicateAccountException,IOException
 
     {
         if (account == null) {
@@ -32,7 +43,9 @@ private List<Transaction> transactions = new ArrayList<>();
         }
 
         accounts.add(account);
-
+        accountFileHandler.saveAllAccounts(accounts);
+     
+       
     }
 
     public Account viewAccount(int accountNumber)
@@ -55,7 +68,7 @@ private List<Transaction> transactions = new ArrayList<>();
 
     public void deposit(int amount, int accountNumber)
 
-            throws AccountNotFoundException {
+            throws AccountNotFoundException,IOException {
 
         if (amount <= 0) {
             throw new IllegalArgumentException(" Enter a Positive amount ");
@@ -65,6 +78,7 @@ private List<Transaction> transactions = new ArrayList<>();
                 depositAccount.setBalance(depositAccount.getBalance() + amount);
                 Transaction transaction = new Transaction( accountNumber, "Deposit", amount, LocalDateTime.now());
                 transactions.add(transaction);
+                accountFileHandler.saveAllAccounts(accounts);
                 return;
             }
 
@@ -76,7 +90,7 @@ private List<Transaction> transactions = new ArrayList<>();
 
     public void withDraw(int amount, int accountNumber)
 
-            throws AccountNotFoundException, InsufficientBalanceException
+            throws AccountNotFoundException, InsufficientBalanceException,IOException
 
     {
 
@@ -93,6 +107,7 @@ private List<Transaction> transactions = new ArrayList<>();
                 withDrawAccount.setBalance(withDrawAccount.getBalance() - amount);
                  Transaction transaction = new Transaction( accountNumber, "withdraw", amount, LocalDateTime.now());
                  transactions.add(transaction);
+                 accountFileHandler.saveAllAccounts(accounts);
                 return;
 
             }
@@ -105,7 +120,7 @@ private List<Transaction> transactions = new ArrayList<>();
 
     public void transferMoney(int fromAccountId, int toAccountId, int amount)
 
-            throws AccountNotFoundException, InsufficientBalanceException
+            throws AccountNotFoundException, InsufficientBalanceException,IOException
 
     {
 
@@ -131,6 +146,9 @@ private List<Transaction> transactions = new ArrayList<>();
 
         receiver.setBalance(receiver.getBalance() + amount);
 
+        accountFileHandler.saveAllAccounts(accounts);
+
+
          Transaction sendertransaction = new Transaction(fromAccountId, "transfer", amount, LocalDateTime.now());
          Transaction receiverTransaction= new Transaction(toAccountId, "transfer", amount, LocalDateTime.now());
 
@@ -141,11 +159,12 @@ private List<Transaction> transactions = new ArrayList<>();
 
 
     public void deleteAccount(int accountId)
-    throws AccountNotFoundException
+    throws AccountNotFoundException,IOException
     {
         Account delAccount = viewAccount(accountId);
 
         accounts.remove(delAccount);
+        accountFileHandler.saveAllAccounts(accounts);
     }
 
 public List<Transaction> getTransactionsByAccount(int accountNumber)
