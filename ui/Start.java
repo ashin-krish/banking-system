@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -62,7 +63,7 @@ public class Start {
                         accountService.createAccount(account);
                         System.out.println("Account " + accountNumber + " created successfully.");
 
-                    } catch (DuplicateAccountException | IllegalArgumentException e) {
+                    } catch (DuplicateAccountException | IllegalArgumentException | IOException e) {
                         System.out.println(e.getMessage());
                     }
 
@@ -100,7 +101,7 @@ public class Start {
 
                         accountService.deposit(amount, accountNumber);
                         System.out.println("Deposit successful.");
-                    } catch (IllegalArgumentException | AccountNotFoundException e) {
+                    } catch (IllegalArgumentException | AccountNotFoundException | IOException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -119,7 +120,7 @@ public class Start {
 
                         accountService.withDraw(amount, accountNumber);
                         System.out.println("Withdrawal successful.");
-                    } catch (IllegalArgumentException | AccountNotFoundException | InsufficientBalanceException e) {
+                    } catch (IllegalArgumentException | AccountNotFoundException | InsufficientBalanceException | IOException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -144,7 +145,7 @@ public class Start {
                         accountService.transferMoney(fromAccountId, toAccountId, amount);
                         System.out.println("Transfer successful.");
 
-                    } catch (IllegalArgumentException | AccountNotFoundException | InsufficientBalanceException e) {
+                    } catch (IllegalArgumentException | AccountNotFoundException | InsufficientBalanceException | IOException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -160,7 +161,7 @@ public class Start {
 
                         System.out.println("Account Deleted successful.");
 
-                    } catch (AccountNotFoundException e) {
+                    } catch (AccountNotFoundException | IOException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
