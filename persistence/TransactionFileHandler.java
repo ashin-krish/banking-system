@@ -12,7 +12,7 @@ import java.util.*;
 import model.Transaction;
 import model.Transaction.TransactionType;
 
-public class TranscationFileHandler 
+public class TransactionFileHandler 
 
 {
     
@@ -80,7 +80,7 @@ public class TranscationFileHandler
                 BufferedWriter bw = new BufferedWriter(fw))
                 {
                     
-                    bw.write("transcationId,accountNumber,TransactionType,amount,transactionDatetime");
+                    bw.write("transactionId,accountNumber,TransactionType,amount,transactionDatetime");
                     bw.newLine();
                     
                     for (Transaction existingTransaction : transactions) 

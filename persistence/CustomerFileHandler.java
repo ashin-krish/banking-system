@@ -43,9 +43,9 @@ public class CustomerFileHandler
                     String phone = data[2];
                     String address = data[3];
                     String dob = data[4];
-                    String customerId = data[5];
+            
 
-                    Customer customer = new Customer(name, email, phone, address, dob, customerId);
+                    Customer customer = new Customer(name, email, phone, address, dob);
 
                     customers.add(customer);
                 }

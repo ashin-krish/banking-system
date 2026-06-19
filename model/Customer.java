@@ -24,16 +24,7 @@ public class Customer
            this.customerId = generateCustomerId();
     }
 
-    public Customer(String name,String email,String phone,String address, String dob,String customerId) 
-    {
-    this.customerId = customerId;
-    this.name = name;
-    this.email = email;
-    this.phone = phone;
-    this.address = address;
-    this.dob = dob;
-  }
-
+ 
     private String generateCustomerId()
     {
           return "CUS" + counter++;

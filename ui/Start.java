@@ -438,11 +438,11 @@ public class Start {
 
         
     
-            List<Transaction> transactions = accountService.getTranscationHistory(accountNumber);
+            List<Transaction> transactions = accountService.getTransactionHistory(accountNumber);
 
             if(transactions.isEmpty())
             {
-                System.out.println("No Transcation Done for this account ");
+                System.out.println("No Transaction Done for this account ");
             }
             else
             {

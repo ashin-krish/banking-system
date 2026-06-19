@@ -36,21 +36,7 @@ public class Transaction {
         setTransactionDateTime(transactionDateTime);
     }
 
-            public Transaction(
-                String transactionId,
-                int accountNumber,
-                TransactionType transactionType,
-                int amount,
-                LocalDateTime transactionDateTime)
-        {
-            this.transactionId = transactionId;
-
-              setAccountNumber(accountNumber);
-    setTransactionType(transactionType);
-    setAmount(amount);
-    setTransactionDateTime(transactionDateTime);
             
-        }
 
 
       private static String generateTransactionId()
@@ -119,8 +105,8 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "\n Transcation Id : " + transactionId +
-                "\n Transcation Type : " + transactionType +
+        return "\n Transaction Id : " + transactionId +
+                "\n Transaction Type : " + transactionType +
                 "\n Account Number        : " + accountNumber +
                 "\n Transaction Amount        : " + amount +
                 "\n Date  : " + transactionDateTime;

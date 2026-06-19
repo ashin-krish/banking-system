@@ -21,7 +21,7 @@ private List<Account> accounts = new ArrayList<>();
 
 AccountFileHandler accountFileHandler = new AccountFileHandler();
 
-TranscationService transcationService = new TranscationService();
+TransactionService transactionService = new TransactionService();
 
 public AccountService()
 {
@@ -78,7 +78,7 @@ public AccountService()
             if (accountNumber == depositAccount.getAccountNumber()) {
                 depositAccount.setBalance(depositAccount.getBalance() + amount);
                 Transaction transaction = new Transaction( accountNumber, TransactionType.DEPOSIT, amount, LocalDateTime.now());
-                transcationService.recordTranscation(transaction);
+                transactionService.recordTransaction(transaction);
                
                 accountFileHandler.saveAllAccounts(accounts);
                 return;
@@ -108,7 +108,7 @@ public AccountService()
 
                 withDrawAccount.setBalance(withDrawAccount.getBalance() - amount);
                  Transaction transaction = new Transaction( accountNumber, TransactionType.WITHDRAW, amount, LocalDateTime.now());
-                 transcationService.recordTranscation(transaction);
+                 transactionService.recordTransaction(transaction);
                  accountFileHandler.saveAllAccounts(accounts);
                 return;
 
@@ -153,8 +153,8 @@ public AccountService()
 
          Transaction sendertransaction = new Transaction(fromAccountId, TransactionType.TRANSFER_OUT, amount, LocalDateTime.now());
          Transaction receiverTransaction= new Transaction(toAccountId, TransactionType.TRANSFER_IN, amount, LocalDateTime.now());
-         transcationService.recordTranscation(receiverTransaction);
-         transcationService.recordTranscation(sendertransaction);
+         transactionService.recordTransaction(receiverTransaction);
+         transactionService.recordTransaction(sendertransaction);
 
     }
 
@@ -169,9 +169,9 @@ public AccountService()
     }
 
 
-      public List<Transaction> getTranscationHistory(int accountNumber)
+      public List<Transaction> getTransactionHistory(int accountNumber)
       {
-        return transcationService.getTransactionsByAccount(accountNumber);
+        return transactionService.getTransactionsByAccount(accountNumber);
       }
 
 
