@@ -11,16 +11,17 @@ import exception.AccountNotFoundException;
 
 import model.Account;
 import model.Transaction;
-
+import model.Transaction.TransactionType;
 import persistence.*;
 
 public class AccountService {
 
 private List<Account> accounts = new ArrayList<>();
-private List<Transaction> transactions = new ArrayList<>();
+
 
 AccountFileHandler accountFileHandler = new AccountFileHandler();
 
+TranscationService transcationService = new TranscationService();
 
 public AccountService()
 {
@@ -76,8 +77,9 @@ public AccountService()
         for (Account depositAccount : accounts) {
             if (accountNumber == depositAccount.getAccountNumber()) {
                 depositAccount.setBalance(depositAccount.getBalance() + amount);
-                Transaction transaction = new Transaction( accountNumber, "Deposit", amount, LocalDateTime.now());
-                transactions.add(transaction);
+                Transaction transaction = new Transaction( accountNumber, TransactionType.DEPOSIT, amount, LocalDateTime.now());
+                transcationService.recordTranscation(transaction);
+               
                 accountFileHandler.saveAllAccounts(accounts);
                 return;
             }
@@ -105,8 +107,8 @@ public AccountService()
                 }
 
                 withDrawAccount.setBalance(withDrawAccount.getBalance() - amount);
-                 Transaction transaction = new Transaction( accountNumber, "withdraw", amount, LocalDateTime.now());
-                 transactions.add(transaction);
+                 Transaction transaction = new Transaction( accountNumber, TransactionType.WITHDRAW, amount, LocalDateTime.now());
+                 transcationService.recordTranscation(transaction);
                  accountFileHandler.saveAllAccounts(accounts);
                 return;
 
@@ -149,11 +151,10 @@ public AccountService()
         accountFileHandler.saveAllAccounts(accounts);
 
 
-         Transaction sendertransaction = new Transaction(fromAccountId, "transfer", amount, LocalDateTime.now());
-         Transaction receiverTransaction= new Transaction(toAccountId, "transfer", amount, LocalDateTime.now());
-
-                 transactions.add(sendertransaction);
-                 transactions.add(receiverTransaction);
+         Transaction sendertransaction = new Transaction(fromAccountId, TransactionType.TRANSFER_OUT, amount, LocalDateTime.now());
+         Transaction receiverTransaction= new Transaction(toAccountId, TransactionType.TRANSFER_IN, amount, LocalDateTime.now());
+         transcationService.recordTranscation(receiverTransaction);
+         transcationService.recordTranscation(sendertransaction);
 
     }
 
@@ -167,21 +168,11 @@ public AccountService()
         accountFileHandler.saveAllAccounts(accounts);
     }
 
-public List<Transaction> getTransactionsByAccount(int accountNumber)
-        throws AccountNotFoundException {
 
-    viewAccount(accountNumber); // validates account exists
+      public List<Transaction> getTranscationHistory(int accountNumber)
+      {
+        return transcationService.getTransactionsByAccount(accountNumber);
+      }
 
-    List<Transaction> accountTransactions = new ArrayList<>();
-
-    for (Transaction transaction : transactions) {
-
-        if (transaction.getAccountNumber() == accountNumber) {
-            accountTransactions.add(transaction);
-        }
-    }
-
-    return accountTransactions;
-}
 
 }

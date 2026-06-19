@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+
 import exception.AccountNotFoundException;
 import exception.CustomerNotFoundException;
 import exception.DuplicateAccountException;
@@ -19,6 +20,7 @@ import service.AccountService;
 import service.CustomerService;
 import service.LoanService;
 
+
 public class Start {
 
     private static AccountService accountService = new AccountService();
@@ -26,6 +28,7 @@ public class Start {
     private static CustomerService customerservice = new CustomerService();
 
     private static LoanService loanservice = new LoanService();
+
 
     public static void accountMenu(Scanner sc) {
 
@@ -434,20 +437,23 @@ public class Start {
         sc.nextLine();
 
         
-        
-        try
-        {
-            List<Transaction> transactions = accountService.getTransactionsByAccount(accountNumber);
+    
+            List<Transaction> transactions = accountService.getTranscationHistory(accountNumber);
 
-            for (Transaction transaction : transactions) 
+            if(transactions.isEmpty())
             {
-                System.out.println(transaction);
+                System.out.println("No Transcation Done for this account ");
             }
-        }
-        catch(AccountNotFoundException e)
-        {
-            System.out.println(e.getMessage());
-        }
+            else
+            {
+
+                for (Transaction transaction : transactions) 
+                {
+                    System.out.println(transaction);
+                }
+            
+            }
+        
     }
 
 

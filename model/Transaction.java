@@ -4,17 +4,28 @@ import java.time.LocalDateTime;
 
 public class Transaction {
 
-    private String transactionId;
+    
+    
+    public enum TransactionType 
+    {
+        DEPOSIT,
+        WITHDRAW,
+        TRANSFER_IN,
+        TRANSFER_OUT
+    }
+
+    private final String transactionId;
     private int accountNumber;
-    private String transactionType;
+    private TransactionType transactionType; 
     private int amount;
     private LocalDateTime transactionDateTime;
-
     private static int counter = 1000;
+
+    
 
     public Transaction(
             int accountNumber,
-            String transactionType,
+            TransactionType transactionType,
             int amount,
             LocalDateTime transactionDateTime) 
         {
@@ -24,6 +35,22 @@ public class Transaction {
         setAmount(amount);
         setTransactionDateTime(transactionDateTime);
     }
+
+            public Transaction(
+                String transactionId,
+                int accountNumber,
+                TransactionType transactionType,
+                int amount,
+                LocalDateTime transactionDateTime)
+        {
+            this.transactionId = transactionId;
+
+              setAccountNumber(accountNumber);
+    setTransactionType(transactionType);
+    setAmount(amount);
+    setTransactionDateTime(transactionDateTime);
+            
+        }
 
 
       private static String generateTransactionId()
@@ -44,17 +71,9 @@ public class Transaction {
         this.accountNumber = accountNumber;
     }
 
-    public void setTransactionType(String transactionType) {
-        if (transactionType == null || transactionType.trim().isEmpty()) {
-            throw new IllegalArgumentException("Transaction type Should not ne empty");
-        }
-
-        transactionType = transactionType.trim().toLowerCase();
-
-        if (!transactionType.equals("deposit") &&
-                !transactionType.equals("withdraw") &&
-                !transactionType.equals("transfer")) {
-            throw new IllegalArgumentException("Choose only valid transaction type ");
+    public void setTransactionType(TransactionType transactionType) {
+        if (transactionType == null) {
+            throw new IllegalArgumentException("Transaction type Should not be empty");
         }
 
         this.transactionType = transactionType;
@@ -82,11 +101,11 @@ public class Transaction {
 
   
 
-    public String getTransactionType() {
+    public TransactionType getTransactionType() {
         return transactionType;
     }
 
-    public int getTransactionAmount() {
+    public int getAmount() {
         return amount;
     }
 
