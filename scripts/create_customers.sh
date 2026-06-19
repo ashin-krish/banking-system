@@ -4,9 +4,9 @@ for i in {1..10}
 do
     name="user$i"
     email="user$i@gmail.com"
-    phone="11111111$i"
+    phone="111111111$i"
     address="home$i"
-    dob="12-06-202$i"
+    dob="12-06-2022"
 
     java ui.TestCustomer create "$name" "$email" "$phone" "$address" "$dob"
 

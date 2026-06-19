@@ -1,0 +1,11 @@
+LoanType,loanAmount,interestRate,LoanId
+homeloan,10102,3.0,LN1000
+homeloan,10103,4.0,LN1001
+homeloan,10104,5.0,LN1002
+homeloan,10105,6.0,LN1003
+homeloan,10106,7.0,LN1004
+homeloan,10107,8.0,LN1005
+homeloan,10108,9.0,LN1006
+homeloan,10109,10.0,LN1007
+homeloan,10110,11.0,LN1008
+homeloan,10111,12.0,LN1009

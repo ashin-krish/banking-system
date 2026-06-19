@@ -1,20 +1,28 @@
 package service;
 
 import model.Loan;
+import persistence.LoanFileHandler;
 
 import java.util.List;
 
 import exception.DuplicateLoanException;
 import exception.LoanNotFoundException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class LoanService 
 {
     private List<Loan> loans = new ArrayList<>();
+    LoanFileHandler loanFileHandler = new LoanFileHandler(); 
+
+    public LoanService()
+    {
+        loans = loanFileHandler.loadLoanFile();
+    }
 
     public void applyLoan(Loan loan)
-      throws DuplicateLoanException
+      throws DuplicateLoanException,IOException
     {
         if(loan == null)
         {
@@ -29,6 +37,7 @@ public class LoanService
        }
 
        loans.add(loan);
+       loanFileHandler.saveLoanFile(loans);
     }
 
     public Loan getloanById(String loanId)
@@ -53,13 +62,14 @@ public class LoanService
     }
 
     public void removeLoan(String loanId)
-     throws LoanNotFoundException
+     throws LoanNotFoundException,IOException
      {
   
 
         Loan loan = getloanById(loanId);
 
         loans.remove(loan);
+        loanFileHandler.saveLoanFile(loans);
 
      }
 

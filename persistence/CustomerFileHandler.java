@@ -18,7 +18,7 @@ public class CustomerFileHandler
     {
         List<Customer> customers = new ArrayList<>();
 
-          File f = new File("data/Customer_data.txt");
+          File f = new File("data/Customer_data.csv");
 
           if(!f.exists())
           {
@@ -74,7 +74,7 @@ public class CustomerFileHandler
     public void saveFile(List<Customer> customers)
     throws IOException
     {
-        File f = new File("data/Customer_data.txt");
+        File f = new File("data/Customer_data.csv");
 
         try(FileWriter fw = new FileWriter(f);
             BufferedWriter bw = new BufferedWriter(fw)

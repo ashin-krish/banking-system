@@ -317,7 +317,7 @@ public class Start {
                         loanservice.applyLoan(loan);
                         System.out.println("Loan created successfully.");
 
-                    } catch (DuplicateLoanException | IllegalArgumentException e) {
+                    } catch (DuplicateLoanException | IllegalArgumentException | IOException e) {
                         System.out.println(e.getMessage());
                     }
 
@@ -371,7 +371,7 @@ public class Start {
                         System.out.println(" Loan Deleted Succesfully ");
                     } 
                     
-                    catch (LoanNotFoundException e) 
+                    catch (LoanNotFoundException | IOException e) 
                     {
                         System.out.println(e.getMessage());
                     }

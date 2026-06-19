@@ -1,0 +1,10 @@
+name,email,phoneNumber,address,dob,customerId
+user1,user1@gmail.com,1111111111,home1,12-06-2022,CUS1000
+user2,user2@gmail.com,1111111112,home2,12-06-2022,CUS1000
+user3,user3@gmail.com,1111111113,home3,12-06-2022,CUS1000
+user4,user4@gmail.com,1111111114,home4,12-06-2022,CUS1000
+user5,user5@gmail.com,1111111115,home5,12-06-2022,CUS1000
+user6,user6@gmail.com,1111111116,home6,12-06-2022,CUS1000
+user7,user7@gmail.com,1111111117,home7,12-06-2022,CUS1000
+user8,user8@gmail.com,1111111118,home8,12-06-2022,CUS1000
+user9,user9@gmail.com,1111111119,home9,12-06-2022,CUS1000
