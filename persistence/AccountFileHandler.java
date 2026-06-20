@@ -80,7 +80,7 @@ public class AccountFileHandler {
                 FileWriter fw = new FileWriter(file);
                 BufferedWriter bw = new BufferedWriter(fw)) {
        
-                bw.write("accountNumber,accountHolderName,balance,accountType,accountStatus");
+                bw.write("accountNumber,accountHolderName,balance,accountType,accountStatus,customerId");
                 bw.newLine();
             
 
@@ -89,7 +89,8 @@ public class AccountFileHandler {
                         existingAccount.getAccountHolderName() + "," +
                         existingAccount.getBalance() + "," +
                         existingAccount.getAccountType() + "," +
-                        existingAccount.getAccountStatus());
+                        existingAccount.getAccountStatus() + "," +
+                        existingAccount.getCustomerId());
                 bw.newLine();
             }
 
