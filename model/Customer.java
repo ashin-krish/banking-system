@@ -20,7 +20,7 @@ public class Customer
            setName(name);
            setPhoneNumber(phone);
            setDob(dob);
-
+        
            this.customerId = generateCustomerId();
     }
 

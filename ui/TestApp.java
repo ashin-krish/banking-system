@@ -1,7 +1,10 @@
 package ui;
 
 import service.AccountService;
+import service.CustomerService;
 import model.Account;
+import model.Account.AccountStatus;
+import model.Account.AccountType;
 
 public class TestApp {
 
@@ -15,7 +18,9 @@ public class TestApp {
 
         String command = args[0];
 
-        AccountService service = new AccountService();
+        CustomerService customerService = new CustomerService();
+
+        AccountService service = new AccountService(customerService);
 
         // ❗ only handle "create" command for now
         if (!command.equals("create")) {
@@ -28,7 +33,7 @@ public class TestApp {
             String name = args[2];
                 int balance = Integer.parseInt(args[3]);
 
-        Account account = new Account(accountNumber, name, balance, "Savings");
+        Account account = new Account(accountNumber, name, balance, AccountType.SAVINGS,AccountStatus.ACTIVE,"CUS1011");
         
             service.createAccount(account);
 

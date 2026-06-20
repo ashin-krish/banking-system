@@ -19,11 +19,15 @@ public class Menu {
         consoleUI.header("Account Management");
 
         System.out.println("[1] Create Account");
-        System.out.println("[2] View Account");
-        System.out.println("[3] Deposit");
-        System.out.println("[4] Withdraw");
-        System.out.println("[5] Transfer");
-        System.out.println("[6] Delete Account");
+        System.out.println("[2] View Account By Account Number");
+        System.out.println("[3] View Account By Customer Id");
+        System.out.println("[4] Deposit");
+        System.out.println("[5] Withdraw");
+        System.out.println("[6] Transfer");
+        System.out.println("[7] Delete Account");
+        System.out.println("[8] View Account With Minimum Balance");
+        System.out.println("[9] View Blocked Account ");
+        System.out.println("[10] View Active Account ");
         System.out.println("[0] Back");
 
         consoleUI.line();
@@ -34,10 +38,12 @@ public class Menu {
         consoleUI.header("Customer Management");
 
         System.out.println("[1] Add Customer");
-        System.out.println("[2] View Customer");
-        System.out.println("[3] View All Customers");
-        System.out.println("[4] Update Customer");
-        System.out.println("[5] Delete Customer");
+        System.out.println("[2] Search By Email");
+        System.out.println("[3] Search By Customer Id");
+        System.out.println("[4] Search By Phone Number");
+        System.out.println("[5] View All Customers");
+        System.out.println("[6] Update Customer");
+        System.out.println("[7] Delete Customer");
         System.out.println("[0] Back");
 
         consoleUI.line();

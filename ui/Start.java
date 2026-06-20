@@ -16,6 +16,8 @@ import model.Account;
 import model.Customer;
 import model.Loan;
 import model.Transaction;
+import model.Account.AccountStatus;
+import model.Account.AccountType;
 import service.AccountService;
 import service.CustomerService;
 import service.LoanService;
@@ -23,9 +25,11 @@ import service.LoanService;
 
 public class Start {
 
-    private static AccountService accountService = new AccountService();
-
+    
     private static CustomerService customerservice = new CustomerService();
+
+    private static AccountService accountService = new AccountService(customerservice);
+
 
     private static LoanService loanservice = new LoanService();
 
@@ -54,19 +58,29 @@ public class Start {
                     sc.nextLine();
 
                     System.out.print("Enter Account Type (Savings/Current/fixed):");
-                    String accountType = sc.nextLine();
+                    String input = sc.nextLine().trim().toUpperCase();
+                    AccountType accountType = AccountType.valueOf(input);
+
+                   System.out.println("Enter Account Status (ACTIVE / BLOCKED / CLOSED): ");
+                     input = sc.nextLine().trim().toUpperCase();
+
+                    AccountStatus accountStatus = AccountStatus.valueOf(input);
+
+                    System.out.println("Enter the Customer Id");
+                     
+                    String customerId = sc.nextLine();
 
                     try {
                         Account account = new Account(
                                 accountNumber,
                                 accountHolderName,
                                 balance,
-                                accountType);
+                                accountType,accountStatus,customerId);
 
                         accountService.createAccount(account);
                         System.out.println("Account " + accountNumber + " created successfully.");
 
-                    } catch (DuplicateAccountException | IllegalArgumentException | IOException e) {
+                    } catch (DuplicateAccountException | IllegalArgumentException | IOException | CustomerNotFoundException e) {
                         System.out.println(e.getMessage());
                     }
 
@@ -80,7 +94,7 @@ public class Start {
                         searchId = sc.nextInt();
                         sc.nextLine();
 
-                        Account account = accountService.viewAccount(searchId);
+                        Account account = accountService.searchByAccountNumber(searchId);
 
                         System.out.println(account);
                     } catch (AccountNotFoundException e) {
@@ -89,7 +103,36 @@ public class Start {
 
                     break;
 
+
                 case 3:
+
+                     try {
+                    System.out.println(" Enter The Customer Id ");
+                     customerId = sc.nextLine().trim();
+
+                    List<Account> customerAccounts = accountService.searchByCustomerId(customerId);
+
+                    System.out.println(customerAccounts);
+
+
+                } catch (CustomerNotFoundException e) {
+                    System.out.println(e.getMessage());
+                }
+
+                catch(IllegalArgumentException e)
+                {
+                    System.out.println(e.getMessage());
+                }
+
+                catch(AccountNotFoundException e)
+                {
+                    System.out.println(e.getMessage());
+                }
+
+                break;
+
+
+                case 4:
                     int amount;
 
                     try {
@@ -104,12 +147,12 @@ public class Start {
 
                         accountService.deposit(amount, accountNumber);
                         System.out.println("Deposit successful.");
-                    } catch (IllegalArgumentException | AccountNotFoundException | IOException e) {
+                    } catch (IllegalArgumentException | AccountNotFoundException | IOException | IllegalStateException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
 
-                case 4:
+                case 5:
 
                     try {
 
@@ -123,12 +166,12 @@ public class Start {
 
                         accountService.withDraw(amount, accountNumber);
                         System.out.println("Withdrawal successful.");
-                    } catch (IllegalArgumentException | AccountNotFoundException | InsufficientBalanceException | IOException e) {
+                    } catch (IllegalArgumentException | AccountNotFoundException | InsufficientBalanceException | IOException | IllegalStateException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
 
-                case 5:
+                case 6:
 
                     try {
                         int fromAccountId, toAccountId;
@@ -148,12 +191,12 @@ public class Start {
                         accountService.transferMoney(fromAccountId, toAccountId, amount);
                         System.out.println("Transfer successful.");
 
-                    } catch (IllegalArgumentException | AccountNotFoundException | InsufficientBalanceException | IOException e) {
+                    } catch (IllegalArgumentException | AccountNotFoundException | InsufficientBalanceException | IOException | IllegalStateException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
 
-                case 6:
+                case 7:
                     try {
 
                         System.out.print("Enter Account Number: ");
@@ -168,6 +211,65 @@ public class Start {
                         System.out.println(e.getMessage());
                     }
                     break;
+
+                case 8:
+                    System.out.println("Enter the Minimum Balance");
+                    int minibalance = sc.nextInt();
+                    sc.nextLine();
+
+                    List <Account> miniBalanceAccounts =accountService.getAccountWithMinBalance(minibalance);
+
+                    if(miniBalanceAccounts.isEmpty())
+                    {
+                        System.out.println("No accounts found with balance greater than" + minibalance);
+                    }
+                    else
+                    {
+                        for (Account accounts : miniBalanceAccounts) {
+                            System.out.println(accounts);
+                            
+                        }
+                    }
+
+                    break;
+
+                case 9:
+            
+                    List <Account> blockedAccounts =accountService.getBlockedAccounts();
+
+                    if(blockedAccounts.isEmpty())
+                    {
+                        System.out.println(" No Blocked Account ");
+                    }
+                    else
+                    {
+                        for (Account accounts : blockedAccounts) {
+                            System.out.println(accounts);
+                            
+                        }
+                    }
+
+                    break;
+                
+                   case 10:
+            
+                    List <Account> activeAccounts =accountService.getActiveAccounts();
+
+                    if(activeAccounts.isEmpty())
+                    {
+                        System.out.println(" No Blocked Account ");
+                    }
+                    else
+                    {
+                        for (Account accounts : activeAccounts) {
+                            System.out.println(accounts);
+                            
+                        }
+                    }
+
+                    break;
+
+
 
                 case 0:
                     return;
@@ -225,7 +327,7 @@ public class Start {
                         System.out.print("Enter The Email Id : ");
                         email = sc.nextLine();
 
-                        Customer customer = customerservice.viewCustomer(email);
+                        Customer customer = customerservice.searchByEmail(email);
 
                         System.out.println(customer);
                     } catch (CustomerNotFoundException e) {
@@ -239,13 +341,59 @@ public class Start {
                     break;
 
                 case 3:
+
+                try {
+                    System.out.println(" Enter The Customer Id ");
+                    String customerId = sc.nextLine().trim();
+
+                    Customer customer = customerservice.searchById(customerId);
+
+                    System.out.println(customer);
+
+
+                } catch (CustomerNotFoundException e) {
+                    System.out.println(e.getMessage());
+                }
+
+                catch(IllegalArgumentException e)
+                {
+                    System.out.println(e.getMessage());
+                }
+
+                break;
+
+
+                case 4:
+
+                      try {
+                    System.out.println(" Enter The Phone Number ");
+                     phone = sc.nextLine().trim();
+
+                    Customer customer = customerservice.searchByPhoneNo(phone);
+
+                    System.out.println(customer);
+
+
+                } catch (CustomerNotFoundException e) {
+                    System.out.println(e.getMessage());
+                }
+
+                catch(IllegalArgumentException e)
+                {
+                    System.out.println(e.getMessage());
+                }
+
+                break;
+
+
+                case 5:
                     for(Customer customer : customerservice.viewAllCustomers())
                     {
                         System.out.println(customer);
                     }
                     break;
 
-                case 4:
+                case 6:
                     try {
 
                         System.out.print(" Enter the Old Email : ");
@@ -265,7 +413,7 @@ public class Start {
                     }
                     break;
 
-                case 5:
+                case 7:
                     try {
                         System.out.println(" Enter The Customer Email ");
                         email = sc.nextLine();
@@ -416,6 +564,32 @@ public class Start {
                         }
                             }
                     break;
+
+                case 7:
+                    System.out.println("Enter the Loan months");
+                    int month = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.println("Enter the loan Id");
+                    String loanId = sc.nextLine();
+
+
+                    try
+                    {
+                       double emi = loanservice.calculateEMI(loanId, month);
+                       System.out.println(emi);
+
+                    }
+                    catch(LoanNotFoundException e)
+                    {
+                        System.out.println(e);
+                    }
+
+                    break;
+
+                    
+
+
 
               
                 case 0:

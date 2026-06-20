@@ -10,6 +10,9 @@ import java.util.*;
 
 import model.Account;
 
+import model.Account.AccountStatus;
+import model.Account.AccountType;
+
 public class AccountFileHandler {
 
     public List<Account> loadFile()
@@ -36,13 +39,15 @@ public class AccountFileHandler {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
 
-                if (data.length == 4) {
+                if (data.length == 6) {
                     int accountNumber = Integer.parseInt(data[0]);
                     String accountHolderName = data[1];
                     int balance = Integer.parseInt(data[2]);
-                    String accountType = data[3];
+                    AccountType accountType = AccountType.valueOf(data[3]);
+                    AccountStatus accountStatus = AccountStatus.valueOf(data[4]);
+                    String customerId = data[5];
 
-                    Account account = new Account(accountNumber, accountHolderName, balance, accountType);
+                    Account account = new Account(accountNumber, accountHolderName, balance, accountType,accountStatus,customerId);
 
                     accounts.add(account);
 
@@ -75,7 +80,7 @@ public class AccountFileHandler {
                 FileWriter fw = new FileWriter(file);
                 BufferedWriter bw = new BufferedWriter(fw)) {
        
-                bw.write("accountNumber,accountHolderName,balance,accountType");
+                bw.write("accountNumber,accountHolderName,balance,accountType,accountStatus");
                 bw.newLine();
             
 
@@ -83,7 +88,8 @@ public class AccountFileHandler {
                 bw.write(existingAccount.getAccountNumber() + "," +
                         existingAccount.getAccountHolderName() + "," +
                         existingAccount.getBalance() + "," +
-                        existingAccount.getAccountType());
+                        existingAccount.getAccountType() + "," +
+                        existingAccount.getAccountStatus());
                 bw.newLine();
             }
 

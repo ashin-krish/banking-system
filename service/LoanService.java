@@ -116,4 +116,19 @@ public class LoanService
      }
 
 
+   public double calculateEMI(String loanId, int months)
+        throws LoanNotFoundException {
+
+    Loan loan = getloanById(loanId);
+
+    double totalInterest =
+            (loan.getAmount() * loan.getLoanInterest()) / 100.0;
+
+    double totalRepayment =
+            loan.getAmount() + totalInterest;
+
+    return totalRepayment / months;
+}
+
+
 }

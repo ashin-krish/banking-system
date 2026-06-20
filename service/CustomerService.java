@@ -41,7 +41,7 @@ public class CustomerService {
 
     }
 
-    public Customer viewCustomer(String email)
+    public Customer searchByEmail(String email)
 
             throws CustomerNotFoundException
 
@@ -111,6 +111,45 @@ public void updateCustomerEmail(String oldEmail, String newEmail)
         }
 
         customerFileHandler.saveFile(customers);
+
+    }
+
+    public Customer searchById(String customerId)
+    throws CustomerNotFoundException
+    {
+        System.out.println("Customer count = " + customers.size());
+        System.out.println("Input ID = [" + customerId + "]");
+
+        if(customerId == null || customerId.isEmpty())
+        {
+            throw new IllegalArgumentException("Enter a proper search input");
+        }
+        for (Customer existingCustomer : customers) {
+            if(customerId.equals(existingCustomer.getCustomerId()))
+            {
+                System.out.println("Stored ID = [" + existingCustomer.getCustomerId() + "]");
+                return existingCustomer;
+            }
+        }
+
+        throw new CustomerNotFoundException(" No Customer Found " + customerId);
+    }
+
+    public Customer searchByPhoneNo(String phone)
+    throws CustomerNotFoundException
+    {
+
+                if (phone == null || phone.isEmpty()) {
+            throw new IllegalArgumentException(" Enter a Proper Search Input ");
+        }
+                for (Customer existingCustomer : customers) {
+            if(phone.equals(existingCustomer.getPhoneNumber()))
+            {
+                return existingCustomer;
+            }
+        }
+
+        throw new CustomerNotFoundException(" No customer Found " + phone);
 
     }
 

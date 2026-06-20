@@ -1,1 +1,12 @@
 CODE_REVIEW.md
+*.class
+scripts/out/
+.idea/
+.vscode/
+.DS_Store
+scripts/sources.txt
+
+FILE_PERSISTENCE_ANALYSIS.md
+PERSISTENCE_QUICK_SUMMARY.md
+
+

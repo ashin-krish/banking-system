@@ -1,11 +1,3 @@
-accountNumber,accountHolderName,balance,accountType
-10001,User1,1120,savings
-10002,User2,3100,savings
-10003,User3,1000,savings
-10004,User4,1000,savings
-10005,User5,1000,savings
-10006,User6,1000,savings
-10007,User7,1000,savings
-10008,User8,1000,savings
-10009,User9,1000,savings
-10010,User10,1000,savings
+accountNumber,accountHolderName,balance,accountType,accountStatus
+12345,krish,0,SAVINGS,ACTIVE
+11221,krish,0,SAVINGS,ACTIVE
